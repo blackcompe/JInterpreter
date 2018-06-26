@@ -1,11 +1,9 @@
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.File;
 
 /**
  * A Java statement interpreter. Add a list of statements with
  * <code>newStatement</code> and run them with
- * <code>run</code>. After running the interpreter, all 
+ * <code>run</code>. After running the interpreter, all
  * previously added statements are forgotten.
  */
 public class JInterpreter {
@@ -18,10 +16,10 @@ public class JInterpreter {
     private JInterpreter(String outputDir) {
         compiler = JPlatform.getInstance(outputDir);
     }
-    
+
     /**
      * Get an instance of the interpreter.
-     * 
+     *
      * @param outputDir An absolute path where support
      *                  files will be created. They aren't
      *                  deleted on exit.
@@ -36,11 +34,11 @@ public class JInterpreter {
     public void setOutputDirectory(String outputDir) {
         compiler.setOutputDirectory(outputDir);
     }
-    
+
     public String getOutputDirectory() {
         return compiler.getOutputDirectory();
     }
-    
+
     /**
      * Reset the interpreter to a fresh state.
      */
@@ -60,18 +58,15 @@ public class JInterpreter {
 
     /**
      * Add a new statement to the interpreter.
-     * 
+     *
      * @param statement A valid Java statement other than a return statement.
-     * 
      * @throws Exception If a return statement is added.
      */
     public void newStatement(String statement) throws Exception {
-        if(statement.length() == 6) {
-            if (statement.substring(0, 6).equals("return"))
-                throw new Exception("No return statements allowed.");
-            else if (statement.substring(0, 6).equals("import"))
-                newImportStatement(statement);
-        }
+        if (statement.startsWith("return"))
+            throw new Exception("No return statements allowed.");
+        else if (statement.startsWith("import"))
+            newImportStatement(statement);
         else
             source.append(statement);
     }
@@ -82,10 +77,9 @@ public class JInterpreter {
 
     /**
      * Run the statements given to the interpreter.
-     * 
+     *
      * @return Returns <code>true</code> if the run was successful, otherwise
-     *         returns <code>false</code>.
-     * 
+     * returns <code>false</code>.
      * @throws Exception If an error occurs.
      */
     public boolean run() throws Exception {

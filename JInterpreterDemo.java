@@ -1,12 +1,12 @@
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.util.Scanner;
 
 public class JInterpreterDemo {
 
     private static String tmpLocation;
     private static JInterpreter interpreter;
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         System.out.print("Enter a valid temporary "
                 + "file directory (that you have access permissions for): ");
         Scanner kbd = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class JInterpreterDemo {
     private static void runInteractiveMode() {
         showUsage();
         Scanner kbd = new Scanner(System.in);
-        String command = null;
+        String command;
         try {
             do {
                 System.out.print("> ");
